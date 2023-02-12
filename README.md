@@ -276,5 +276,9 @@ $ python3 unittest -m tests/test_console.py
 ```
 
 ## Authors :black_nib:
+
 * **Ojoachubione Olufu** <[Shugo](https://github.com/Shugo)> [olofuchubi@gmail.com]
+
 * **Leo Azubuike** <[Azubuikeleo13](https://github.com/Azubuikeleo13)> [azubuikeleo13@gmail.com]
+
+<img align="center" src="https://raw.githubusercontent.com/nickssilver/AirBnB_clone/main/img/unnamed.png" alt="footer" width="150"  height="150"/>
