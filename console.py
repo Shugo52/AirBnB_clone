@@ -105,7 +105,7 @@ class HBNBCommand(cmd.Cmd):
         else:
             updateDict = all_objs[f"{arg[0]}.{arg[1]}"]
             updateDict.__dict__[arg[2]] = arg[3]
-        updateDict.save()
+            updateDict.save()
 
     def do_quit(self, line):
         """ Quit command to exit the program
