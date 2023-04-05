@@ -3,6 +3,7 @@
 
 import cmd
 from models.base_model import BaseModel
+from models.user import User
 import models
 import shlex
 
@@ -18,6 +19,7 @@ class HBNBCommand(cmd.Cmd):
     prompt = "(hbnb) "
     __classes = [
         "BaseModel",
+        "User"
     ]
 
     def do_create(self, args):
@@ -28,7 +30,7 @@ class HBNBCommand(cmd.Cmd):
         if len(arg) == 0:
             print("** class name missing **")
         elif arg[0] not in HBNBCommand.__classes:
-            print("** class doesn't exist")
+            print("** class doesn't exist **")
         else:
             print(eval(arg[0])().id)
             models.storage.save()
@@ -80,8 +82,9 @@ class HBNBCommand(cmd.Cmd):
         elif arg[0] and arg[0] not in HBNBCommand.__classes:
             print("** class doesn't exist **")
         else:
-            for arg[0] in all_objs.keys():
-                print(all_objs[arg[0]])
+            for key in all_objs.keys():
+                if arg[0] in key:
+                    print(all_objs[key])
 
     def do_update(self, args):
         """Usage:
