@@ -4,6 +4,7 @@
 import cmd
 import uuid
 from datetime import datetime
+import models
 
 
 class BaseModel:
@@ -19,24 +20,23 @@ class BaseModel:
     """
     def __init__(self, *args, **kwargs):
         self.id = str(uuid.uuid4())
-        self.created_at = datetime.now()
-        self.updated_at = datetime.now()
-
-        if kwargs is not None:
+        self.created_at = datetime.today()
+        self.updated_at = datetime.today()
+        if kwargs:
             for k,v in kwargs.items():
-                if k == 'id':
-                    self.id = v
-                elif k == 'created_at':
-                    self.created_at = self.created_at.fromisoformat(v)
-                elif k == 'updated_at':
-                    self.updated_at = self.updated_at.fromisoformat(v)
-
+                if k == 'created_at' or k == 'updated_at':
+                    self.__dict__[k] = self.__dict__[k].fromisoformat(v)
+                else:
+                    self.__dict__[k] = v
+        else:
+            models.storage.new(self)
 
     def save(self):
-        self.updated_at = datetime.now()
+        self.updated_at = datetime.today()
+        models.storage.save()
 
     def to_dict(self):
-        instanceDict = self.__dict__
+        instanceDict = self.__dict__.copy()
         instanceDict['__class__'] = self.__class__.__name__
         instanceDict['created_at'] = self.created_at.isoformat()
         instanceDict['updated_at'] = self.updated_at.isoformat()
