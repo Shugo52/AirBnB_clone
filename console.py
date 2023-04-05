@@ -3,6 +3,12 @@
 
 import cmd
 from models.base_model import BaseModel
+from models.user import User
+from models.place import Place
+from models.amenity import Amenity
+from models.city import City
+from models.state import State
+from models.review import Review
 import models
 import shlex
 
@@ -34,7 +40,7 @@ class HBNBCommand(cmd.Cmd):
         if len(arg) == 0:
             print("** class name missing **")
         elif arg[0] not in HBNBCommand.__classes:
-            print("** class doesn't exist")
+            print("** class doesn't exist **")
         else:
             print(eval(arg[0])().id)
             models.storage.save()
