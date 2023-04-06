@@ -173,7 +173,7 @@ class HBNBCommand(cmd.Cmd):
             if isinstance(args[1], dict):
                 id, attr = args
                 for key, value in attr.items():
-                    self.do_update(f"{model} {id} {key} {value}")
+                    self.do_update(f"{model[0]} {id} {key} {value}")
                 return
 
             if type(args) != str:
