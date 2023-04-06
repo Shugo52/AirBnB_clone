@@ -143,6 +143,14 @@ class HBNBCommand(cmd.Cmd):
             self.do_all(model[0])
             return
 
+        if model[1] == "count()":
+            count = 0
+            for key in models.storage.all().keys():
+                if model[0] in key:
+                    count += 1
+            print(count)
+            return
+
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
