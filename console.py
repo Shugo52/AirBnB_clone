@@ -151,6 +151,11 @@ class HBNBCommand(cmd.Cmd):
             print(count)
             return
 
+        if "show" in model[1]:
+            id = model[1][5:-1]
+            self.do_show(f"{model[0]} {id}")
+            return
+
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
