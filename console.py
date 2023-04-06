@@ -134,8 +134,10 @@ class HBNBCommand(cmd.Cmd):
         return True
 
     def default(self, line):
+        """ Called when cmd prefix is not recognized"""
         if '.' not in line:
-            return super().default(line)
+            super().default(line)
+            return
 
         model = line.split('.')
 
@@ -162,10 +164,25 @@ class HBNBCommand(cmd.Cmd):
             return
 
         if "update" in model[1]:
-            args = model[1][7:-1]
-            argList = args.split(', ')
-            self.do_update(f"{model[0]} {argList[0]} {argList[1]} {argList[2]}")
+            if model[1] == "update()":
+                self.do_update(model[0])
+                return
+
+            args = eval(model[1][7:-1])
+
+            if isinstance(args[1], dict):
+                id, attr = args
+                for key, value in attr.items():
+                    self.do_update(f"{model} {id} {key} {value}")
+                return
+
+            if type(args) != str:
+                u_args = " ".join(args)
+
+            self.do_update(f"{model[0]} {args}")
             return
+
+        super().default(line)
 
 
 if __name__ == '__main__':
