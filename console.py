@@ -133,6 +133,16 @@ class HBNBCommand(cmd.Cmd):
         print('')
         return True
 
+    def default(self, line):
+        if '.' not in line:
+            return super().default(line)
+
+        model = line.split('.')
+
+        if model[1] == "all()":
+            self.do_all(model[0])
+            return
+
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
