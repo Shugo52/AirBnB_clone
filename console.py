@@ -170,17 +170,24 @@ class HBNBCommand(cmd.Cmd):
 
             args = eval(model[1][7:-1])
 
-            if isinstance(args[1], dict):
-                id, attr = args
-                for key, value in attr.items():
-                    self.do_update(f"{model[0]} {id} {key} {value}")
+            if "update" in model[1]:
+                args = line.split(".")
+                if args[1] == "update()":
+                    self.do_update(model[0])
+                    return
+                u_args = eval(args[1][7:-1])
+
+                if isinstance(u_args[1], dict):
+                    id, attr = u_args
+                    for key, value in attr.items():
+                        self.do_update(f"{model[0]} {id} {key} {value}")
+                    return
+
+                if type(u_args) != str:
+                    u_args = " ".join(u_args)
+
+                self.do_update(f"{model[0]} {u_args}")
                 return
-
-            if type(args) != str:
-                u_args = " ".join(args)
-
-            self.do_update(f"{model[0]} {args}")
-            return
 
         super().default(line)
 
