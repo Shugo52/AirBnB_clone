@@ -156,6 +156,17 @@ class HBNBCommand(cmd.Cmd):
             self.do_show(f"{model[0]} {id}")
             return
 
+        if "destroy" in model[1]:
+            id = model[1][8:-1]
+            self.do_destroy(f"{model[0]} {id}")
+            return
+
+        if "update" in model[1]:
+            args = model[1][7:-1]
+            argList = args.split(', ')
+            self.do_update(f"{model[0]} {argList[0]} {argList[1]} {argList[2]}")
+            return
+
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
